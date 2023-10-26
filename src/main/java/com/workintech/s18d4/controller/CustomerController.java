@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.workintech.s18d4.dto.CustomerResponse;
 import com.workintech.s18d4.entity.Customer;
 import com.workintech.s18d4.service.CustomerService;
+import com.workintech.s18d4.util.EntityConverter;
 
 @RestController
 @RequestMapping("/customers")
@@ -26,23 +27,23 @@ public class CustomerController {
     }
 
     @PostMapping("/")
-    public Customer save(@RequestBody Customer customer){
-        return customerService.save(customer);
+    public CustomerResponse save(@RequestBody Customer customer){
+        return EntityConverter.getResponse(customerService.save(customer));
     }
 
     @GetMapping("/")
-    public List<Customer> findAll(){
-        return customerService.findAll();
+    public List<CustomerResponse> findAll(){
+        return EntityConverter.getResponses(customerService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable long id){
-        return customerService.findById(id);
+    public CustomerResponse findById(@PathVariable long id){
+        return EntityConverter.getResponse(customerService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public Customer deleteById(@PathVariable long id){
-        return customerService.delete(id);
+    public CustomerResponse deleteById(@PathVariable long id){
+        return EntityConverter.getResponse(customerService.delete(id));
     }
 
 }
